@@ -1,0 +1,8 @@
+---
+dotfiles_repo: https://github.com/vladdancer/dotfiles.git
+dotfiles_repo_local_destination: ~/dotfiles
+dotfiles_files:
+  - .bashrc
+  - .bash_aliases
+  - .routine.bashrc
+  - .gitconfig

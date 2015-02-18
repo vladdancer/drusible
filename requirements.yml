@@ -1,0 +1,4 @@
+---
+- src: geerlingguy.ansible
+- src: geerlingguy.dotfiles
+- src: geerlingguy.php

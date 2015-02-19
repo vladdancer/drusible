@@ -1,4 +1,7 @@
 ---
-- src: geerlingguy.ansible
+- src: geerlingguy.git
 - src: geerlingguy.dotfiles
+- src: geerlingguy.nginx
 - src: geerlingguy.php
+- src: geerlingguy.composer
+- src: geerlingguy.drush

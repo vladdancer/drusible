@@ -16,6 +16,8 @@
   roles:
     - geerlingguy.git
     - geerlingguy.dotfiles
+    # TODO: merge PR and use github.com/Oefenweb/ansible-nano
+    - nano
     - geerlingguy.nginx
     - geerlingguy.php
     - geerlingguy.composer

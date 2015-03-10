@@ -6,6 +6,7 @@
   vars_files:
     - vars/git.yml
     - vars/dotfiles.yml
+    - vars/dotfiles.yml
     - vars/php.yml
     - vars/main.yml
 
@@ -16,8 +17,7 @@
   roles:
     - geerlingguy.git
     - geerlingguy.dotfiles
-    # TODO: merge PR and use github.com/Oefenweb/ansible-nano
-    - nano
+    - tersmitten.nano
     - geerlingguy.nginx
     - geerlingguy.php
     - geerlingguy.composer

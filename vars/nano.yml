@@ -1,0 +1,21 @@
+---
+nano_improved_nanorc_langs:
+  - css
+  - git
+  - html
+  - ini
+  - java
+  - javascript
+  - json
+  - makefile
+  - markdown
+  - nginx
+  - patch
+  - php
+  - po
+  - python
+  - shell
+  - sql
+  - vi
+  - xml
+  - yaml

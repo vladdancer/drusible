@@ -1,4 +1,13 @@
 ---
+# Inspired:
+# - https://github.com/geerlingguy/mac-dev-playbook
+# - https://github.com/MobliMic/Ubuntu-Development-Playbook
+# - https://github.com/psgrove/ansibledevubuntu
+# - https://bitbucket.org/drupalway/drupalpro/src/2dea442b7cfb2d2eb12d662206ce476b9b1449e3/drush_addons/quickstart/quickstart.inc?at=7.x-3.x
+# - https://www.digitalocean.com/community/tutorials/how-to-migrate-from-an-apache-web-server-to-nginx-on-an-ubuntu-vps
+# - https://github.com/marclloyd77/generator-drupalbase
+# - https://github.com/darol100/lazydubuntu/blob/master/bin/basictools.sh
+#
 - hosts: do-drusible
   remote_user: root
   # connection: local

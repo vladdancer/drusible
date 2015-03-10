@@ -7,7 +7,8 @@
 # - https://www.digitalocean.com/community/tutorials/how-to-migrate-from-an-apache-web-server-to-nginx-on-an-ubuntu-vps
 # - https://github.com/marclloyd77/generator-drupalbase
 # - https://github.com/darol100/lazydubuntu/blob/master/bin/basictools.sh
-#
+# - https://github.com/perusio/drupal-with-nginx
+
 - hosts: do-drusible
   remote_user: root
   # connection: local

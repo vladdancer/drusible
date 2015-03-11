@@ -5,7 +5,8 @@ if [ ! -x /usr/bin/ansible ]; then
   echo ">>> Installing ansible";
 
   apt-get update
-  apt-get install python-pip python-dev git -y
+  apt-get install python2.7-dev
+  apt-get install python-pip git -y
   
   pip install PyYAML jinja2 paramiko
   git clone https://github.com/ansible/ansible.git
@@ -20,3 +21,5 @@ if [ ! -x /usr/bin/ansible ]; then
   cp ~/ansible/examples/hosts /etc/ansible/
   ln -s /root/ansible/bin/ansible /usr/bin/ansible
 fi
+
+sudo ansible-galaxy install -r requirements.yml

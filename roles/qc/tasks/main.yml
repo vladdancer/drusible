@@ -14,3 +14,11 @@
     owner: root
     group: "{{ ansible_ssh_user }}"
     mode: 0644
+
+- name: Copy Nginx template.
+  copy:
+    src: nginx.template
+    dest: "{{ ansible_env.HOME }}/.drush"
+    owner: root
+    group: "{{ ansible_ssh_user }}"
+    mode: 0644

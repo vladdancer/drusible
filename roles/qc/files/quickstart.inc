@@ -75,69 +75,36 @@ function quickstart_destroy_dns($domain, $params) {
   quickstart_shell_exec("sudo sed -i \"/ $domain .*#drusible/d\" /etc/hosts");
 }
 
-
 /**
- * This is the virtual hosts template file for the apache functions.
- */
-define('NGINX_TEMPLATE', "
-<VirtualHost *:80>
-  ServerName #DOMAIN#
-  ServerAlias *.#DOMAIN#
-  DocumentRoot #CODEPATH#
-  <Directory #CODEPATH#>
-    Options Indexes FollowSymLinks MultiViews
-    AllowOverride All
-    Order allow,deny
-    allow from all
-  </Directory>
-</VirtualHost>
-<IfModule mod_ssl.c>
-  <VirtualHost *:443>
-    ServerName #DOMAIN#
-    ServerAlias *.#DOMAIN#
-    DocumentRoot #CODEPATH#
-    <Directory #CODEPATH#>
-      Options Indexes FollowSymLinks MultiViews
-      AllowOverride All
-      Order allow,deny
-      allow from all
-    </Directory>
-    SSLEngine on
-    SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
-    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-  </VirtualHost>
-</IfModule>");
-
-/**
- * Configure apache virtualhost file using the template.
- * Files put in /etc/apache2/sites-available/$domain, then a2ensite'd
+ * Configure nginx virtualhost file using the template.
+ * Files put in /etc/nginx/sites-available/$domain.
  * Runs: apache2 restart
  *
  * @param <type> $domain
  * @param <type> $params 'codepath'
  */
-function quickstart_create_apache($domain, $params) {
+function quickstart_create_nginx($domain, $params) {
   // get codepath and make sure it exists.
   $codepath = $params['codepath'];
 
   if (!file_exists($codepath)) mkdir($codepath, 0770, true);
 
   // get template
-  $str_config = file_get_contents('./nginx.template', TRUE);
+  $str_config = file_get_contents(dirname(__FILE__) . '/nginx.template');
 
   // make our own :-)
   $str_config = str_replace("#DOMAIN#", $domain, $str_config);
   $str_config = str_replace("#CODEPATH#", $codepath, $str_config);
 
-  $config_handle = fopen("/etc/apache2/sites-available/$domain", "w+");
+  $config_handle = fopen("/etc/nginx/sites-available/$domain", "w+");
   fwrite($config_handle, $str_config);
 
-  // enable using script
-  quickstart_shell_exec("sudo a2ensite $domain");
+  // enable using nginx_ensite
+  quickstart_shell_exec("sudo nginx_ensite $domain");
 
-  // restart apache
+  // restart nginx
   // use sysvinit scripts instead of upstart for more compatibility(debian, etc)
-  quickstart_shell_exec("sudo /etc/init.d/apache2 restart");
+  quickstart_shell_exec("sudo service nginx restart");
 }
 
 /**

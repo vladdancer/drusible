@@ -24,7 +24,7 @@ function quickstart_drush_command() {
           ),
           'options' => array(
                   'domain'       => 'Required (all).  Domain name of new site.  Use this to reference site with other commands.  Becomes dns, dbname, dbuser, dbpass, site-name, and kitchen-sink',
-                  'codepath'     => 'Optional (apache,code,install).  Path to drupal code.  Defaults to "~/websites/[domain]"',
+                  'codepath'     => 'Optional (apache,code,install).  Path to drupal code.  Defaults to "/var/www/[domain]"',
           ),
           'examples' => array(),
           'aliases' => array('qc'),
@@ -38,7 +38,7 @@ function quickstart_drush_command() {
           ),
           'options' => array(
                   'domain' => 'Domain name to destroy.',
-                  'codepath' => 'Path to drupal code.  Defaults to ~/websites/[domain]',
+                  'codepath' => 'Path to drupal code.  Defaults to /var/www/[domain]',
                   'yes'      => 'Optional. Skip confirmation',
           ),
           'examples' => array(
@@ -60,7 +60,7 @@ function quickstart_drush_command() {
           ),
           'options' => array(
                   'domain' => 'Domain name to fix permissions.',
-                  'codepath' => 'Path to drupal code.  Defaults to ~/websites/[domain]',
+                  'codepath' => 'Path to drupal code.  Defaults to /var/www/[domain]',
           ),
           'examples' => array(
                   'Simplest format' => 'drush qf --domain=example.dev',
@@ -122,7 +122,7 @@ function _quickstart_params($required) {
   // defaults
   $defaults['domain_'] = $domain_ = str_replace('.','_',$options['domain']);
   // apache, code, install
-  $defaults['codepath'] = quickstart_fixpath("~/websites/" . $options['domain']);
+  $defaults['codepath'] = quickstart_fixpath("/var/www/" . $options['domain']);
 
   // Merge it all together - 2nd array overwrites first.
   $ret = array_merge($ret, $commands);
@@ -137,4 +137,55 @@ function _quickstart_params($required) {
     }
   }
   return $ret;
+}
+
+/**
+ * Drush callbackfunction for 'drush quickstart-create'.
+ *
+ * This function goes step-by-step in creating the new site.
+ *
+ * @reurn true on success
+ */
+function drush_quickstart_create() {
+  $params = _quickstart_params(array('domain'));
+  if (isset($params['fail'])) return drush_set_error(0, dt('Bad parameters.  Try "drush help quickstart-create"'));
+  $domain = $params['domain'];
+  $domain_ = $params['domain_'];
+
+  drush_log(' ', 'ok'); // add newline at top of output
+
+  try {
+    if (array_search("dns", $params)) {
+      drush_log("Creating dns config (add $domain to /etc/hosts) ...", 'ok');
+      quickstart_create_dns($domain, $params);
+      drush_log('                                                ... done.', 'ok');
+    }
+    if (array_search("database", $params)) {
+      drush_log("Creating database: $domain_", 'ok');
+      quickstart_create_database($domain, $params);
+      drush_log('                                                ... done.', 'ok');
+    }
+    if (array_search("code", $params)) {
+      drush_log('Downloading code to ' . $params['codepath'] . ' (takes a minute, check network activity) ...', 'ok');
+      quickstart_create_code($domain, $params);
+      drush_log('                                                ... done.', 'ok');
+    }
+    if (array_search("nginx", $params)) {  // apache after code to handle mkdir
+      drush_log("Creating nginx config (/etc/nginx/sites-enabled/$domain)", 'ok');
+      quickstart_create_nginx($domain, $params);
+      drush_log('                                                ... done.', 'ok');
+    }
+    if (array_search("install", $params)) {
+      drush_log('Running installer (takes a minute, check cpu activity) ...', 'ok');
+      quickstart_create_install($domain, $params);
+      drush_log('                                                ... done.', 'ok');
+    }
+  } catch (Exception $e) {
+    $message = $e->getMessage();
+    drush_log("Command failed: $message", "error");
+    return false;
+  }
+
+  drush_log("Command completed successfully.", "success");
+  return true;
 }

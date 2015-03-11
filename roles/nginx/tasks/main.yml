@@ -1,11 +1,19 @@
 ---
+- name: Create nginx setup (checkout) directory
+  file:
+    path: /var/lib/ansible/drusible/checkouts
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: Creates nginx conf backup dir
   file: path=/etc/nginx.old state=directory
   register: nginx_adv_backup_dir
   when: nginx_adv_backup_dir is not defined
 
 - name: Backup standard nginx folder
-  command: cp -r /etc/nginx/ /etc/nginx.old
+  shell: "cp -r /etc/nginx/* /etc/nginx.old"
   register: nginx_backuped
   when: (nginx_adv_backup_dir) and (nginx_adv_seted is not defined)
 
@@ -15,9 +23,33 @@
   when: nginx_backuped
 
 - name: Clone nginx advanced drupal config
-  git: >
-    repo=https://github.com/perusio/drupal-with-nginx
-    dest=/etc/nginx
+  git:
+    repo: https://github.com/perusio/drupal-with-nginx
+    dest: /var/lib/ansible/drusible/checkouts/drupal-with-nginx
+    update: true
+  register: drupal_with_nginx_installed
+
+- name: Copy drupal-with-nginx to /etc/nginx
+  shell: "cp -r /var/lib/ansible/drusible/checkouts/drupal-with-nginx/* /etc/nginx"
   notify: restart nginx
-  register: nginx_adv_seted
-  when: (nginx_backuped|succdess) and (nginx_adv_seted is not defined)
+  when: drupal_with_nginx_installed|changed
+
+- name: Ensure nginx_ensite is installed.
+  git:
+    repo: https://github.com/perusio/nginx_ensite
+    dest: /var/lib/ansible/drusible/checkouts/nginx_ensite
+    update: true
+  register: nginx_ensite
+
+- name: Install nginx_ensite scripts.
+  shell: "cp -r /var/lib/ansible/drusible/checkouts/nginx_ensite/nginx_* /usr/sbin"
+  when: nginx_ensite|changed
+
+- name: Create sites-available folder
+  file:
+    path: /etc/nginx/sites-available
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+

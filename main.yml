@@ -32,4 +32,5 @@
     - geerlingguy.php
     - geerlingguy.composer
     - geerlingguy.drush
-
+    - nginx
+    - qc

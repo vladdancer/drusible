@@ -1,0 +1,16 @@
+---
+- name: Copy Drush QC command.
+  copy:
+    src: quickstart.drush.inc
+    dest: "{{ ansible_env.HOME }}/.drush"
+    owner: root
+    group: "{{ ansible_ssh_user }}"
+    mode: 0644
+
+- name: Copy Drush QC include file.
+  copy:
+    src: quickstart.inc
+    dest: "{{ ansible_env.HOME }}/.drush"
+    owner: root
+    group: "{{ ansible_ssh_user }}"
+    mode: 0644

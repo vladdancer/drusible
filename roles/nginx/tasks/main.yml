@@ -24,7 +24,7 @@
 
 - name: Clone nginx advanced drupal config
   git:
-    repo: https://github.com/perusio/drupal-with-nginx
+    repo: https://github.com/codewhisper/drupal-with-nginx
     dest: /var/lib/ansible/drusible/checkouts/drupal-with-nginx
     update: true
   register: drupal_with_nginx_installed

@@ -1,5 +1,11 @@
 ---
+- apt_key: 
+  keyserver: keyserver.ubuntu.com
+  id: E5267A6C 
+  state: present
+
 - name: Add php5-5.6 to the repository
   apt_repository:
     repo: 'ppa:ondrej/php5-5.6'
     state: present
+# Fix fatal: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E5267A6C

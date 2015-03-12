@@ -9,9 +9,12 @@
 # - https://github.com/darol100/lazydubuntu/blob/master/bin/basictools.sh
 # - https://github.com/perusio/drupal-with-nginx
 
-- hosts: do-drusible
+- hosts: localhost
   remote_user: root
-  # connection: local
+  connection: local
+  
+#- hosts: do-drusible
+#  remote_user: root
 
   vars_files:
     - vars/git.yml
@@ -21,7 +24,7 @@
     - vars/main.yml
 
   pre_tasks:
-      - include: tasks/prepare.yml
+    - include: tasks/prepare.yml
 
   # TODO: Group roles into separate mine role.
   roles:

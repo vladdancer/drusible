@@ -1,6 +1,6 @@
 ---
 dotfiles_repo: https://github.com/vladdancer/dotfiles.git
-dotfiles_repo_local_destination: ~/dotfiles
+dotfiles_repo_local_destination: "/home/{{ ansible_env.SUDO_USER }}/dotfiles"
 dotfiles_files:
   - .bashrc
   - .bash_aliases

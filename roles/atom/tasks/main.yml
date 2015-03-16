@@ -1,0 +1,36 @@
+---
+
+- name: Add repository into sources list.
+  apt_repository:
+    repo: 'ppa:webupd8team/atom'
+    state: present
+    update_cache: yes
+  
+- name: Installing.
+  apt: 
+    name: atom
+    state: installed
+    update-cache: yes
+    force: yes
+
+- name: Check if Atom is already installed.
+  stat: path=/usr/bin/hipchat
+  register: atom_installed
+
+# Installing Packages for Atom .
+- name: Add packages.
+  command: "apm install {{ item }}"
+  with_items:
+    - language-drupal
+    - drupal
+    - drupal-info-file
+    - color-picker
+    - emmet
+    - fancy-new-file
+    - jshint
+    - atom-alignment
+    - change-case
+    - linter
+    - atom-html-preview
+    - bootstrap-3-snippetset
+  when: atom_installed.stat.exists == true and atom_installed|changed

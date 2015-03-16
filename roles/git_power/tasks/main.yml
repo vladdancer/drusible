@@ -1,0 +1,11 @@
+---
+
+- name: Install Git Utils.
+  register: inst_git_utils
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - gitg
+    - meld
+    - git-gui
+    - gitk
+    - nautilus-compare

@@ -1,24 +1,42 @@
 ---
-- name: Copy Drush QC command.
-  copy:
-    src: quickstart.drush.inc
-    dest: "{{ ansible_env.HOME }}/.drush"
-    owner: root
-    group: "{{ ansible_ssh_user }}"
-    mode: 0644
+- name: Check if ~/.drush is already exists.
+  stat: path="{{ user_home_dir }}/.drush"
+  register: drush_config
 
-- name: Copy Drush QC include file.
-  copy:
-    src: quickstart.inc
-    dest: "{{ ansible_env.HOME }}/.drush"
-    owner: root
-    group: "{{ ansible_ssh_user }}"
-    mode: 0644
+- name: Creates ~/.drush folder
+  file:
+    path: "{{ user_home_dir }}/.drush"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: u=rwX,g=rX,o=r
+  when: drush_config.stat.exists == false
+  register: drush_config_folder
+  sudo: no
 
-- name: Copy Nginx template.
-  copy:
-    src: nginx.template
-    dest: "{{ ansible_env.HOME }}/.drush"
-    owner: root
-    group: "{{ ansible_ssh_user }}"
-    mode: 0644
+- name: Symlink ~/drusible/drush_addons/quickstart to ~/.drush/quickstart.
+  file:
+    src: "{{ user_home_dir }}/drusible/drush_addons/quickstart"
+    path: "{{ user_home_dir }}/.drush/quickstart"
+    state: link
+  when: drush_config_folder|changed
+  sudo: no
+
+- name: Symlink ~/drusible/drush_addons/make_templates/*.make to ~/.drush.
+  file:
+    src: "{{ user_home_dir }}/drusible/drush_addons/make_templates/{{ item }}"
+    path: "{{ user_home_dir }}/.drush/{{ item }}"
+    state: link
+  with_items:
+    - d6.make
+    - d6git.make
+    - d7.make
+    - d7git.make
+    - d8git.make
+    - default.make
+  #when: drush_config_folder|changed
+  sudo: no
+
+- name: Clear drush cache
+  shell: drush cc drush
+  sudo: no

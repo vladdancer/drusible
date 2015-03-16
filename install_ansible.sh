@@ -4,22 +4,8 @@
 if [ ! -x /usr/bin/ansible ]; then
   echo ">>> Installing ansible";
 
+  #apt-get install software-properties-common
+  apt-add-repository ppa:ansible/ansible -y
   apt-get update
-  apt-get install python2.7-dev
-  apt-get install python-pip git -y
-  
-  pip install PyYAML jinja2 paramiko
-  git clone https://github.com/ansible/ansible.git
-  
-  cd ansible
-  # fix error https://github.com/ansible/ansible/issues/5412
-  git submodule update --init --recursive
-  
-  make install
-  mkdir /etc/ansible
-  
-  cp ~/ansible/examples/hosts /etc/ansible/
-  ln -s /root/ansible/bin/ansible /usr/bin/ansible
+  apt-get install ansible -y
 fi
-
-sudo ansible-galaxy install -r requirements.yml

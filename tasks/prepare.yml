@@ -1,11 +1,44 @@
 ---
-- apt_key: 
-  keyserver: keyserver.ubuntu.com
-  id: E5267A6C 
-  state: present
+
+- name: Remove ~/.bashrc
+  file:
+    path: ~/.bashrc
+    state: absent
+  sudo: no
 
 - name: Add php5-5.6 to the repository
   apt_repository:
     repo: 'ppa:ondrej/php5-5.6'
     state: present
-# Fix fatal: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E5267A6C
+    update_cache: yes
+
+- name: Creates sites folder
+  file:
+    path: /var/www
+    state: directory
+    owner: "{{ user }}"
+    group: www-data
+    mode: u=rwX,g=rX,o=
+
+- name: Check if Drupal with Nginx is already installed.
+  stat: path=/etc/nginx/apps/drupal
+  register: drupal_nginx_conf_installed
+
+- name: Creates drusible folder
+  file:
+    path: "{{ user_home_dir }}/drusible"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: u=rwX,g=rX,o=r
+  register: drusible
+  sudo: no
+
+- name: Check if drush_addons is already exists.
+  stat: path="{{ user_home_dir }}/drusible/drush_addons"
+  register: drush_addons
+
+- name: Copy drush addons
+  shell: "cp -r {{ ansible_env.PWD }}/roles/qc/files/drush_addons {{ user_home_dir }}/drusible"
+  when: drush_addons.stat.exists == false
+  sudo: no

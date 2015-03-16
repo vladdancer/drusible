@@ -8,32 +8,55 @@
 # - https://github.com/marclloyd77/generator-drupalbase
 # - https://github.com/darol100/lazydubuntu/blob/master/bin/basictools.sh
 # - https://github.com/perusio/drupal-with-nginx
+# - https://github.com/Afxsoft/Nginx-Vhost-Drupal/blob/master/MyVhost.conf
 
 - hosts: localhost
-  remote_user: root
   connection: local
-  
-#- hosts: do-drusible
-#  remote_user: root
+  sudo: yes
+
+  vars_prompt:
+    - name: git_user_name
+      prompt: "Git user name"
+      private: no
+
+    - name: git_user_email
+      prompt: "Git user email"
+      private: no
 
   vars_files:
     - vars/git.yml
     - vars/dotfiles.yml
-    - vars/dotfiles.yml
+    - vars/mysql.yml
     - vars/php.yml
+    - vars/phpstorm.yml
     - vars/main.yml
 
   pre_tasks:
+    - include: tasks/ansible-setup.yml
     - include: tasks/prepare.yml
 
-  # TODO: Group roles into separate mine role.
   roles:
     - geerlingguy.git
     - geerlingguy.dotfiles
     - tersmitten.nano
-    - geerlingguy.nginx
+    - { role: geerlingguy.nginx, when: not drupal_nginx_conf_installed.stat.exists }
     - geerlingguy.php
+    - geerlingguy.mysql
     - geerlingguy.composer
     - geerlingguy.drush
-    - nginx
     - qc
+    - java
+    - kosssi.phpstorm
+    - browsers
+    - terminal
+    - git_power
+    - grafics
+    - chats
+    - atom
+
+  tasks:
+    - include: tasks/drupal_nginx_conf.yml
+    #- include: tasks/php_fpm_setup.yml
+
+  post_tasks:
+    - include: tasks/complete.yml

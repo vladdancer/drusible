@@ -1,4 +1,8 @@
 ---
+nano_nanorc_destinations:
+  - /etc/skel
+  - "/home/{{ ansible_env.SUDO_USER }}"
+
 nano_improved_nanorc_langs:
   - css
   - git

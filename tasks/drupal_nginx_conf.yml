@@ -1,0 +1,54 @@
+---
+- name: Creates nginx conf backup dir
+  file:
+    path: /etc/nginx.old
+    state: directory
+
+- name: Backup standard nginx folder
+  shell: "cp -r /etc/nginx/* /etc/nginx.old"
+  register: nginx_backuped
+  when: drupal_nginx_conf_installed.stat.exists == false
+
+- name: Clear /etc/nginx
+  shell: rm -rf /etc/nginx/*
+  when: drupal_nginx_conf_installed.stat.exists == false
+
+- name: Clone nginx advanced drupal config
+  git:
+    repo: https://github.com/vladdancer/drupal-with-nginx
+    dest: /etc/nginx
+    update: true
+  register:
+  when: drupal_nginx_conf_installed.stat.exists == false
+
+- name: Ensure nginx_ensite is installed.
+  git:
+    repo: https://github.com/perusio/nginx_ensite
+    dest: "{{ downloads }}/nginx_ensite"
+    update: true
+  register: nginx_ensite
+
+- name: Install nginx_ensite scripts.
+  shell: "cp -r {{ downloads }}/nginx_ensite/nginx_* /usr/sbin"
+  when: nginx_ensite|changed
+
+- name: Ensure nginx/microcache is created.
+  file:
+    path: /var/cache/nginx/microcache
+    state: directory
+
+- name: Ensure sites-available is created.
+  file:
+    path: /etc/nginx/sites-available
+    state: directory
+    owner: root
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0775
+
+- name: Ensure sites-enabled is created.
+  file:
+    path: /etc/nginx/sites-enabled
+    state: directory
+    owner: root
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: 0775

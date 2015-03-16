@@ -1,5 +1,12 @@
 ---
-downloads: ~/.ansible-downloads/
+downloads: ~/.ansible-downloads
 
 composer_keep_updated: true
 drush_version: 6.5.0
+
+# CPU specific
+nginx_worker_processes: "{{ ansible_processor_cores }}"
+nginx_worker_connections: "1024"
+
+user_home_dir: "/home/{{ ansible_env.SUDO_USER }}"
+user: "{{ ansible_env.SUDO_USER }}"

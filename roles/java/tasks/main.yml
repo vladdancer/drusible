@@ -1,0 +1,18 @@
+---
+
+- name: Add Oracle JDK to the repository
+  apt_repository:
+    repo: 'ppa:webupd8team/java'
+    state: present
+    update_cache: yes
+
+- name: Deal with the Oracle license
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+  when: oracle_jdk_installed is not defined
+
+- name: Ensure Oracle JDK are installed.
+  apt: "name={{ item }} state=installed update-cache=yes force=yes"
+  with_items:
+    - oracle-java8-installer
+    - oracle-java8-set-default
+  register: oracle_jdk_installed

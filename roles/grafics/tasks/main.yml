@@ -1,0 +1,9 @@
+---
+
+- name: Installing GIMP
+  sudo: yes
+  apt: name=gimp state=latest
+
+- name: Installing VLC
+  sudo: yes
+  apt: name=vlc state=latest

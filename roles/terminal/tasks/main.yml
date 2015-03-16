@@ -1,0 +1,27 @@
+---
+
+- name: Install Terminal Utils.
+  register: inst_term_utils
+  action: "apt pkg={{item}} state=installed"
+  with_items:
+    - guake
+    - nautilus-open-terminal
+    - grsync
+
+- name: Configure Terminal Utils.
+  command: "{{ item }}"
+  with_items:
+    - "gconftool -s /apps/guake/keybindings/global/show_hide --type=string 'F4'"
+    - "gconftool -s /apps/guake/general/history_size --type=int 8192"
+    - "gconftool -s /apps/guake/style/background/transparency --type=int 10"
+    - "gconftool -s /apps/guake/general/window_ontop --type=bool false"
+    - "gconftool -s /apps/guake/style/font/style --type=string 'Monospace 13'"
+  when: inst_term_utils.changed
+  sudo: no
+
+- name: Add guake to autostart.
+  file:
+    src: /usr/share/applications/guake.desktop
+    path: /etc/xdg/autostart/guake.desktop
+    state: link
+

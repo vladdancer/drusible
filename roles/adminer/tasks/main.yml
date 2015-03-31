@@ -1,30 +1,35 @@
-- name: Check Adminer existance
-  stat: path=/usr/share/adminer/latest.php
-  register: adminer
-
 - name: Create Adminer folder
   file:
     path: /usr/share/adminer
     state: directory
 
 - name: Adminer downloading
-  shell: "wget http://www.adminer.org/latest.php -O /usr/share/adminer/latest.php"
-  sudo: yes
-  when: adminer.stat.exist == false
+  get_url: 
+    url: 'http://www.adminer.org/latest.php'
+    dest: '/usr/share/adminer/latest.php'
 
 - name: Adminer symlink
-  file: src=/usr/share/adminer/latest.php dest=/usr/share/adminer/adminer.php state=link
-  sudo: yes
+  file: 
+    src: '/usr/share/adminer/latest.php'
+    dest: '/usr/share/adminer/adminer.php'
+    state: 'link'
 
 - name: Adminer vhost
-  copy: src={{ ansible_env.PWD }}/roles/adminer/files/adminer dest=/etc/nginx/sites-available/adminer mode=0644
+  copy: 
+    src: '{{ ansible_env.PWD }}/roles/adminer/files/adminer'
+    dest: '/etc/nginx/sites-available/adminer'
+    mode: '0644'
 
 - name: Create adminer vhost symlink
-  file: src=/etc/nginx/sites-available/adminer dest=/etc/nginx/sites-enabled/adminer state=link
+  file: 
+    src: '/etc/nginx/sites-available/adminer'
+    dest: '/etc/nginx/sites-enabled/adminer'
+    state: 'link'
 
 - name: Add adminer to hosts
-  lineinfile: dest=/etc/hosts line="127.0.0.1 adminer"
-  sudo: yes
+  lineinfile:
+    dest: '/etc/hosts'
+    line: "127.0.0.1 adminer"
 
 - name: Restart nginx server
   shell: "service nginx restart"

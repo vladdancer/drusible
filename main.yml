@@ -61,4 +61,5 @@
     #- include: tasks/php_fpm_setup.yml
 
   post_tasks:
+    - include: tasks/sudoers_fix.yml
     - include: tasks/complete.yml

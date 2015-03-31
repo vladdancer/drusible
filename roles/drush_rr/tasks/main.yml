@@ -1,0 +1,5 @@
+- name: Download the Drush Registry Rebuild module
+  command: drush dl registry_rebuild --destination=/home/{{ user }}/.drush/registry_rebuild --yes chdir=/home/{{ user }}/.drush creates=/home/{{ user }}/.drush/registry_rebuild
+
+- name: Clear Drush cache
+  command: drush cc drush

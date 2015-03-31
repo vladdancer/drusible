@@ -44,6 +44,7 @@
     - geerlingguy.mysql
     - geerlingguy.composer
     - geerlingguy.drush
+    - drush_rr
     - qc
     - java
     - kosssi.phpstorm

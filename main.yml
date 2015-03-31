@@ -54,6 +54,7 @@
     - grafics
     - chats
     - atom
+    - adminer
 
   tasks:
     - include: tasks/drupal_nginx_conf.yml

@@ -1,5 +1,10 @@
+- name: Check is Drush Registry Rebuild module exist
+  stat: path=/home/{{ ansible_env.SUDO_USER }}/.drush/registry_rebuild
+  register: drush_rr
+
 - name: Download the Drush Registry Rebuild module
-  command: drush dl registry_rebuild --destination=/home/{{ user }}/.drush/registry_rebuild --yes chdir=/home/{{ user }}/.drush creates=/home/{{ user }}/.drush/registry_rebuild
+  command: drush dl registry_rebuild --destination=/home/{{ ansible_env.SUDO_USER }}/.drush/registry_rebuild --yes chdir=/home/{{ ansible_env.SUDO_USER }}/.drush creates=/home/{{ ansible_env.SUDO_USER }}/.drush/registry_rebuild
+  when: drush_rr.stat.exist == false
 
 - name: Clear Drush cache
   command: drush cc drush

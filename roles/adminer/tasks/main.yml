@@ -1,3 +1,7 @@
+- name: Check Adminer existance
+  stat: path=/usr/share/adminer/latest.php
+  register: adminer
+
 - name: Create Adminer folder
   file:
     path: /usr/share/adminer
@@ -6,9 +10,10 @@
 - name: Adminer downloading
   shell: "wget http://www.adminer.org/latest.php -O /usr/share/adminer/latest.php"
   sudo: yes
+  when: adminer.stat.exist == false
 
 - name: Adminer symlink
-  shell: "ln -s /usr/share/adminer/latest.php /usr/share/adminer/adminer.php"
+  file: src=/usr/share/adminer/latest.php dest=/usr/share/adminer/adminer.php state=link
   sudo: yes
 
 - name: Adminer vhost
@@ -18,7 +23,7 @@
   file: src=/etc/nginx/sites-available/adminer dest=/etc/nginx/sites-enabled/adminer state=link
 
 - name: Add adminer to hosts
-  shell: "echo '127.0.0.1 adminer' >> /etc/hosts"
+  lineinfile: dest=/etc/hosts line="127.0.0.1 adminer"
   sudo: yes
 
 - name: Restart nginx server

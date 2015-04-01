@@ -1,27 +1,14 @@
----
-- name: Install dependencies
+- name: Add architecture for x64 systems
   sudo: yes
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - libqt4-dbus
-    - libqt4-network
-    - libqt4-xml
-    - libasound2
-  
-- name: Fix any broken depedencies
-  command: apt-get -f -y install
-   
-- name: Download Skype installer
-  get_url: "dest={{ skype_deb_package }} url={{ skype_url }}"
-  
-- name: Install
-  command: dpkg --skip-same-version -i {{ skype_deb_package }}
-  
-- name: Add Skype Wrapper PPA
-  apt_repository: repo=ppa:skype-wrapper/ppa state=present
-  
-- name: Install Skype wrapper
-  apt: pkg={{ item }} state=latest update_cache=yes
-  with_items:
-    - skype-wrapper
-    - python-skype
+  shell: "dpkg --add-architecture i386"
+  when: ansible_userspace_bits == "64"
+
+- name: Install Skype
+  script: {{ ansible_env.PWD }}/roles/skype/files/install_skype.sh creates=/usr/share/skype
+  sudo: yes
+
+- name: Add Skype to autostart.
+  file:
+    src: /usr/share/applications/skype.desktop
+    path: /etc/xdg/autostart/skype.desktop
+    state: link

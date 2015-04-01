@@ -1,0 +1,10 @@
+- name: Check is Drush Registry Rebuild module exist
+  stat: path="{{ user_home_dir }}/.drush/registry_rebuild"
+  register: drush_rr
+
+- name: Download the Drush Registry Rebuild module
+  command: drush dl registry_rebuild --destination={{ user_home_dir }}/.drush/registry_rebuild --yes chdir={{ user_home_dir }}/.drush creates={{ user_home_dir }}/.drush/registry_rebuild
+  when: drush_rr.stat.exists == false
+
+- name: Clear Drush cache
+  command: drush cc drush

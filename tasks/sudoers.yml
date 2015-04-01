@@ -1,0 +1,4 @@
+- name: Fix sudoers password asking
+  lineinfile:
+    dest: '/etc/sudoers'
+    line: "{{ ansible_env.SUDO_USER }} ALL=(ALL) NOPASSWD:ALL"

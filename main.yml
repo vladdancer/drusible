@@ -45,6 +45,7 @@
     - geerlingguy.composer
     - geerlingguy.drush
     - qc
+    - drush_rr
     - java
     - kosssi.phpstorm
     - browsers
@@ -54,10 +55,12 @@
     - chats
     - atom
     - adminer
+    - skype
 
   tasks:
     - include: tasks/drupal_nginx_conf.yml
     #- include: tasks/php_fpm_setup.yml
 
   post_tasks:
+    - include: tasks/sudoers_fix.yml
     - include: tasks/complete.yml

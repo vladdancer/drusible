@@ -4,8 +4,9 @@
   when: ansible_userspace_bits == "64"
 
 - name: Install Skype
-  script: {{ ansible_env.PWD }}/roles/skype/files/install_skype.sh creates=/usr/share/skype
-  sudo: yes
+  command: "sudo sh {{ ansible_env.PWD }}/roles/skype/files/install_skype.sh"
+  args:
+    creates: /usr/share/skype
 
 - name: Add Skype to autostart.
   file:

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Enable the canonical partner repo.
-sed -i "/^# deb .*partner/ s/^# //" /etc/apt/sources.list
+sudo sed -i "/^# deb .*partner/ s/^# //" /etc/apt/sources.list
 # Update apt-cache.
-apt-get update
+sudo apt-get update -y
 # Install skype.
-apt-get install skype
+sudo apt-get install skype -y

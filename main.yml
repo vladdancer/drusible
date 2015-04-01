@@ -55,6 +55,7 @@
     - chats
     - atom
     - adminer
+    - skype
 
   tasks:
     - include: tasks/drupal_nginx_conf.yml

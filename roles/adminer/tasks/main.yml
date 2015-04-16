@@ -5,30 +5,30 @@
 
 - name: Adminer downloading
   get_url: 
-    url: 'http://www.adminer.org/latest.php'
-    dest: '/usr/share/adminer/latest.php'
+    url: http://www.adminer.org/latest.php
+    dest: /usr/share/adminer/latest.php
 
 - name: Adminer symlink
   file: 
-    src: '/usr/share/adminer/latest.php'
-    dest: '/usr/share/adminer/adminer.php'
-    state: 'link'
+    src: /usr/share/adminer/latest.php
+    dest: /usr/share/adminer/adminer.php
+    state: link
 
 - name: Adminer vhost
   copy: 
     src: '{{ ansible_env.PWD }}/roles/adminer/files/adminer'
-    dest: '/etc/nginx/sites-available/adminer'
-    mode: '0644'
+    dest: /etc/nginx/sites-available/adminer
+    mode: 0644
 
 - name: Create adminer vhost symlink
   file: 
-    src: '/etc/nginx/sites-available/adminer'
-    dest: '/etc/nginx/sites-enabled/adminer'
-    state: 'link'
+    src: /etc/nginx/sites-available/adminer
+    dest: /etc/nginx/sites-enabled/adminer
+    state: link
 
 - name: Add adminer to hosts
   lineinfile:
-    dest: '/etc/hosts'
+    dest: /etc/hosts
     line: "127.0.0.1 adminer"
 
 - name: Restart nginx server

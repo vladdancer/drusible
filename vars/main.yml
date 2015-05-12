@@ -2,7 +2,7 @@
 downloads: ~/.ansible-downloads
 
 composer_keep_updated: true
-drush_version: 6.5.0
+drush_version: 6.6.0
 
 # CPU specific
 nginx_worker_processes: "{{ ansible_processor_cores }}"

@@ -1,111 +1,74 @@
-# -*- mode: nginx; mode: flyspell-prog;  ispell-current-dictionary: american -*-
 ### Configuration for #DOMAIN#.
-
-## Return (no rewrite) server block.
 server {
-    ## This is to avoid the spurious if for sub-domain name
-    ## "rewriting".
-    listen 80; # IPv4
-    server_name www.#DOMAIN#;
-    return 301 $scheme://#DOMAIN#$request_uri;
-
-} # server domain return.
-
-## HTTP server.
-server {
-    listen 80; # IPv4
-
     server_name #DOMAIN#;
-    limit_conn arbeit 32;
+    root #CODEPATH#;
 
     ## Access and error logs.
     access_log /var/log/nginx/#DOMAIN#_access.log;
     error_log /var/log/nginx/#DOMAIN#_error.log;
 
-    ## See the blacklist.conf file at the parent dir: /etc/nginx.
-    ## Deny access based on the User-Agent header.
-    if ($bad_bot) {
-        return 444;
-    }
-    ## Deny access based on the Referer header.
-    if ($bad_referer) {
-        return 444;
+    location = /favicon.ico {
+        log_not_found off;
+        access_log off;
     }
 
-    ## Protection against illegal HTTP methods. Out of the box only HEAD,
-    ## GET and POST are allowed.
-    if ($not_allowed_method) {
-        return 405;
+    location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+    }
+    # Very rarely should these ever be accessed outside of your lan
+    location ~* \.(txt|log)$ {
+        allow 10.1.0.0/16;
+        deny all;
     }
 
-    ## Filesystem root of the site and index.
-    root #CODEPATH#;
-    index index.php;
+    location ~ \..*/.*\.php$ {
+        return 403;
+    }
 
-    ## If you're using a Nginx version greater or equal to 1.1.4 then
-    ## you can use keep alive connections to the upstream be it
-    ## FastCGI or Apache. If that's not the case comment out the line below.
-    fastcgi_keep_conn on; # keep alive to the FCGI upstream
+    # No no for private
+    location ~ ^/sites/.*/private/ {
+        return 403;
+    }
 
-    ## Uncomment if you're proxying to Apache for handling PHP.
-    #proxy_http_version 1.1; # keep alive to the Apache upstream
+    # Block access to "hidden" files and directories whose names begin with a
+    # period. This includes directories used by version control systems such
+    # as Subversion or Git to store control files.
+    location ~ (^|/)\. {
+        return 403;
+    }
+    location / {
+        # This is cool because no php is touched for static content
+        try_files $uri @rewrite;
+    }
 
-    ################################################################
-    ### Generic configuration: for most Drupal 7 sites.
-    ################################################################
-    include apps/drupal/drupal.conf;
+    location @rewrite {
+        # For D7 and above:
+        # Clean URLs are handled in drupal_environment_initialize().
+        rewrite ^ /index.php;
+    }
 
-    ################################################################
-    ### Configuration for Drupal 7 sites to serve URIs that need
-    ### to be **escaped**
-    ################################################################
-    #include apps/drupal/drupal_escaped.conf;
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+        # With php5-fpm:
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
 
-    #################################################################
-    ### Configuration for updating the site via update.php and running
-    ### cron externally. If you don't use drush for running cron use
-    ### the configuration below.
-    #################################################################
-    include apps/drupal/drupal_cron_update.conf;
+    # Fighting with ImageCache? This little gem is amazing.
+    location ~ ^/sites/.*/files/imagecache/ {
+        try_files $uri @rewrite;
+    }
+    # Catch image styles for D7 too.
+    location ~ ^/sites/.*/files/styles/ {
+        try_files $uri @rewrite;
+    }
 
-    ################################################################
-    ### Installation handling. This should be commented out after
-    ### installation if on an already installed site there's no need
-    ### to touch it. If on a yet to be installed site. Uncomment the
-    ### line below and comment out after installation. Note that
-    ### there's a basic auth in front as secondary ligne of defense.
-    ################################################################
-    include apps/drupal/drupal_install.conf;
-
-    ## Including the php-fpm status and ping pages config.
-    ## Uncomment to enable if you're running php-fpm.
-    include php_fpm_status_vhost.conf;
-
-    ## Including the Nginx stub status page for having stats about
-    ## Nginx activity: http://wiki.nginx.org/HttpStubStatusModule.
-    include nginx_status_vhost.conf;
-
-} # HTTP server
-
-## Return (no rewrite) server block.
-server {
-    ## This is to avoid the spurious if for sub-domain name
-    ## "rewriting".
-    ## Comment the line below if you're using SPDY.
-    listen 443 ssl;
-    ## Uncomment the line below if you're using SPDY.
-    #listen 443 ssl spdy; # IPv4
-
-    server_name www.#DOMAIN#;
-
-    ## Keep alive timeout set to a greater value for SSL/TLS.
-    keepalive_timeout 75 75;
-
-    ## See the keepalive_timeout directive in nginx.conf.
-    ## Server certificate and key.
-    ssl_certificate         /etc/ssl/certs/ssl-cert-snakeoil.pem;
-    ssl_certificate_key     /etc/ssl/private/ssl-cert-snakeoil.key;
-
-    return 301 $scheme://#DOMAIN#$request_uri;
-
-} # server domain return.
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires max;
+        log_not_found off;
+    }
+}

@@ -13,8 +13,9 @@
   with_items:
     - "gconftool -s /apps/guake/keybindings/global/show_hide --type=string 'F4'"
     - "gconftool -s /apps/guake/general/history_size --type=int 8192"
-    - "gconftool -s /apps/guake/style/background/transparency --type=int 10"
-    - "gconftool -s /apps/guake/general/window_ontop --type=bool false"
+    - "gconftool -s /apps/guake/style/background/transparency --type=int 0"
+    - "gconftool -s /apps/guake/general/window_ontop --type=bool true"
+    - "gconftool -s /apps/guake/general/window_losefocus --type=bool true"
     - "gconftool -s /apps/guake/style/font/style --type=string 'Monospace 13'"
   when: inst_term_utils.changed
   sudo: no
@@ -24,4 +25,3 @@
     src: /usr/share/applications/guake.desktop
     path: /etc/xdg/autostart/guake.desktop
     state: link
-

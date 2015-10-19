@@ -17,7 +17,7 @@ ansible-playbook main.yml -i inventory -s -K
 ### Testing on VM (latest virtualbox)
 http://askubuntu.com/questions/451805/screen-resolution-problem-with-ubuntu-14-04-and-virtualbox#answer-595192
 Fix shared folder issue: ```sudo adduser <some user> vboxsf```
-To get a list of ansible host variavles: 
+To get a list of ansible host variables: 
 ``` ansible 127.0.0.1 -c local -s -K -m setup```
 
 

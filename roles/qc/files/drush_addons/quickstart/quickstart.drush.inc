@@ -32,8 +32,8 @@ function quickstart_drush_command() {
     'options' => array(
       'domain'       => 'Required (all).  Domain name of new site.  Use this to reference site with other commands.  Becomes dns, dbname, dbuser, dbpass, site-name, and kitchen-sink',
       'dbuser'       => 'Optional (db).  Root mysql user.  Defaults to "root"',
-      'dbpassword'   => 'Optional (db).  Root mysql password.  Defaults to "drupalpro"',
-      'codepath'     => 'Optional (nginx,code,install).  Path to drupal code.  Defaults to "~/websites/[domain]"',
+      'dbpassword'   => 'Optional (db).  Root mysql password.  Defaults to "root"',
+      'codepath'     => 'Optional (nginx,code,install).  Path to drupal code.  Defaults to "/var/www/[domain]"',
       'makefile'     => 'Optional (code).  Path to drupal make file.  Defaults to D7 "~/.drush/default.make"',
       'profile'      => 'Optional (install).  Name of profile to install.  Defaults to "default" in D6, "standard" in D7',
       'db-url'       => 'Optional (install).  DB url.  Defaults to "mysql://[domain]]:[domain]@localhost/[domain]" (replace . with _ in [domain])',
@@ -76,8 +76,8 @@ function quickstart_drush_command() {
       'Only Remove DNS (/etc/hosts)' => 'drush quickstart-destroy dns --domain=example.dev',
       'Only Remove Nginx (/etc/nginx/sites-enabled/)' => 'drush quickstart-destroy nginx --domain=example.dev',
       'Only Drop Database (mysql db and user)' => 'drush quickstart-destroy database --domain=example.dev',
-      'Only Delete code and files (~/webistes/<domain>)' => 'drush quickstart-destroy code --domain=example.dev --codepath=/path/to/drupal',
-      'Only Reset for reinstall (~/webistes/<domain>)' => 'drush quickstart-destroy install --domain=example.dev --codepath=/path/to/drupal',
+      'Only Delete code and files (/var/www/<domain>)' => 'drush quickstart-destroy code --domain=example.dev --codepath=/path/to/drupal',
+      'Only Reset for reinstall (/var/www/<domain>)' => 'drush quickstart-destroy install --domain=example.dev --codepath=/path/to/drupal',
     ),
     'aliases' => array('qd'),
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH, // No bootstrap at all.

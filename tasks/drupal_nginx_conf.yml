@@ -30,7 +30,7 @@
 
 - name: Install nginx_ensite scripts.
   shell: "cp -r {{ downloads }}/nginx_ensite/nginx_* /usr/sbin"
-  when: nginx_ensite|changed
+  when: nginx_ensite
 
 - name: Ensure nginx/microcache is created.
   file:

@@ -18,9 +18,9 @@
       state: present
       insertbefore: "^# Set credential helper on ubuntu using gnome-keyring"
 
-  - name: Set Git user mail
+  - name: Set Git user email
     lineinfile:
       dest: '{{ user_home_dir }}/dotfiles/.gitconfig'
-      line: 'email = "{{git_user_mail}}"'
+      line: 'email = "{{git_user_email}}"'
       state: present
       insertbefore: "^# Set credential helper on ubuntu using gnome-keyring"

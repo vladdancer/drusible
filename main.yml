@@ -37,7 +37,6 @@
     - geerlingguy.drush
     - qc
     - drush_rr
-    - sniffers
     - java
     - kosssi.phpstorm
     - browsers
@@ -63,5 +62,6 @@
       private: no
 
   post_tasks:
+    - include: tasks/phpcs_complete.yml
     - include: tasks/sudoers.yml
     - include: tasks/complete.yml

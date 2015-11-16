@@ -1,0 +1,18 @@
+---
+  - name: Create PHPCS symlink
+    file:
+      src: "{{ user_home_dir }}/.composer/vendor/squizlabs/php_codesniffer/scripts/phpcs"
+      dest: /usr/bin/phpcs
+      state: link
+      mode: 0777
+
+  - name: Create PHPCBF symlink
+    file:
+      src: "{{ user_home_dir }}/.composer/vendor/squizlabs/php_codesniffer/scripts/phpcbf"
+      dest: /usr/bin/phpcbf
+      state: link
+      mode: 0777
+
+  - name: Register the Drupal and DrupalPractice Standard with PHPCS
+    shell: "phpcs --config-set installed_paths {{ user_home_dir }}/.composer/vendor/drupal/coder/coder_sniffer"
+    sudo: yes

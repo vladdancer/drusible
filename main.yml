@@ -14,15 +14,6 @@
   connection: local
   sudo: yes
 
-  vars_prompt:
-    - name: git_user_name
-      prompt: "Git user name"
-      private: no
-
-    - name: git_user_email
-      prompt: "Git user email"
-      private: no
-
   vars_files:
     - vars/git.yml
     - vars/dotfiles.yml
@@ -61,6 +52,16 @@
     - include: tasks/drupal_nginx_conf.yml
     #- include: tasks/php_fpm_setup.yml
 
+  vars_prompt:
+    - name: "git_user_name"
+      prompt: "Git user name"
+      private: no
+
+    - name: "git_user_email"
+      prompt: "Git user email"
+      private: no
+
   post_tasks:
+    - include: tasks/phpcs_complete.yml
     - include: tasks/sudoers.yml
     - include: tasks/complete.yml

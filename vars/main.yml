@@ -2,6 +2,15 @@
 downloads: ~/.ansible-downloads
 
 composer_keep_updated: true
+composer_home_path: "/home/{{ ansible_env.SUDO_USER }}/.composer"
+# Override the packages,
+# which should be installed via composer.
+composer_global_packages:
+  - name: squizlabs/php_codesniffer
+  - name: drupal/coder
+    release: "8.2.4"
+
+# Override Drush version.
 drush_version: 6.6.0
 
 # CPU specific

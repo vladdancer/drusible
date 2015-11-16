@@ -1,6 +1,26 @@
 ---
+  - name: Remove an old Git user name if it exist
+    lineinfile:
+      dest: '{{ user_home_dir }}/dotfiles/.gitconfig'
+      regexp: '^name = '
+      state: absent
 
-- name: Set git user credits.
-  shell: "git config --global user.name '{{ git_user_name }}'"
-  shell: "git config --global user.email '{{ git_user_email }}'"
+  - name: Remove an old Git user email if it exist
+    lineinfile:
+      dest: '{{ user_home_dir }}/dotfiles/.gitconfig'
+      regexp: '^email = '
+      state: absent
 
+  - name: Set Git user name
+    lineinfile:
+      dest: '{{ user_home_dir }}/dotfiles/.gitconfig'
+      line: 'name = "{{git_user_name}}"'
+      state: present
+      insertbefore: "^# Set credential helper on ubuntu using gnome-keyring"
+
+  - name: Set Git user email
+    lineinfile:
+      dest: '{{ user_home_dir }}/dotfiles/.gitconfig'
+      line: 'email = "{{git_user_email}}"'
+      state: present
+      insertbefore: "^# Set credential helper on ubuntu using gnome-keyring"

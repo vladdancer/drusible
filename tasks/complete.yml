@@ -1,12 +1,22 @@
 ---
+  - name: Remove an old Git user name if it exist
+    lineinfile:
+      dest: '{{ user_home_dir }}/dotfiles/.gitconfig'
+      regexp: '^name = '
+      state: absent
+
+  - name: Remove an old Git user email if it exist
+    lineinfile:
+      dest: '{{ user_home_dir }}/dotfiles/.gitconfig'
+      regexp: '^email = '
+      state: absent
+
   - name: Set Git user name
     lineinfile:
       dest: '{{ user_home_dir }}/dotfiles/.gitconfig'
       line: 'name = "{{git_user_name}}"'
       state: present
       insertbefore: "^# Set credential helper on ubuntu using gnome-keyring"
-    when: not git_user_name_installed
-    register: git_user_name_installed
 
   - name: Set Git user mail
     lineinfile:
@@ -14,5 +24,3 @@
       line: 'email = "{{git_user_mail}}"'
       state: present
       insertbefore: "^# Set credential helper on ubuntu using gnome-keyring"
-    when: not git_user_email_installed
-    register: git_user_email_installed

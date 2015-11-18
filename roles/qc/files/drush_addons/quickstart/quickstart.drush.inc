@@ -11,15 +11,15 @@ include("quickstart.inc");
 
 /**
  * Simple helper function to keep all the arguments in a list.
- * @return <type>
+ *
+ * @return array
  */
 function _quickstart_arg_list() {
   return array('code'=>'code', 'database'=>'database', 'nginx'=>'nginx', 'dns'=>'dns', 'install'=>'install');
 }
 
 /**
- * Implements hook_drush_command()
- * @return array
+ * Implements hook_drush_command().
  */
 function quickstart_drush_command() {
   $items = array();
@@ -109,14 +109,15 @@ function quickstart_drush_command() {
  * Implementation of hook_drush_help().
  */
 function quickstart_drush_help($section) {
-  switch ($section) {
-  }
+  switch ($section) {}
 }
 
 /**
  * Helper function to check input parameters
- * @param  $required any parameters that are required
- * @return array  if $ret['fail'] is true, then check failed, and an error was logged.
+ * @param array $required
+ *   Any parameters that are required.
+ * @return array
+ *   If $ret['fail'] is true, then check failed, and an error was logged.
  */
 function _quickstart_params($required) {
   // check arguments
@@ -190,15 +191,18 @@ function _quickstart_params($required) {
 }
 
 /**
- * Drush callbackfunction for 'drush quickstart-fixperms'.
+ * Drush callback function for 'drush quickstart-fixperms'.
  *
  * This function fixes permissions for a drupal site.
  *
- * @reurn true on success
+ * @return bool
+ *   True on success.
  */
 function drush_quickstart_fixperms() {
   $params = _quickstart_params(array('domain'));
-  if (isset($params['fail'])) return drush_set_error(0, dt('Bad parameters.  Try "drush help quickstart-fixperms"'));
+  if (isset($params['fail'])) {
+    return drush_set_error(0, dt('Bad parameters.  Try "drush help quickstart-fixperms"'));
+  }
 
   $codepath = $params['codepath'];
 
@@ -207,6 +211,7 @@ function drush_quickstart_fixperms() {
   // find directories named "files" and run chmod on them.
   quickstart_shell_exec("sudo find $codepath/sites -type d -name files -exec chmod -R a=,ug=rwX '{}' \;");
   quickstart_shell_exec("sudo find $codepath/sites -type d -name files_private -exec chmod -R a=,ug=rwX '{}' \;");
+  return TRUE;
 }
 
 /**

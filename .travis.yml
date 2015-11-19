@@ -15,3 +15,6 @@ script:
 
   # Run Ansible's syntax and playbook check on the main playbook.
   - 'printf "test\n\rtest\n\r" | ansible-playbook -i "localhost," -c local main.yml --syntax-check'
+
+  # Run the playbook with ansible-playbook.
+  - 'printf "test\n\rtest\n\r" | ansible-playbook -i "localhost," -c local main.yml --sudo'

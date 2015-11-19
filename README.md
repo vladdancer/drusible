@@ -1,5 +1,6 @@
 Drusible
 ==========
+[![Build Status](https://travis-ci.org/drupalway/drusible.svg)](https://travis-ci.org/drupalway/drusible)
 ##Ubuntu Drupal Development playbook
 inspired by:
 - [mac-dev-playbook] [1]

@@ -20,3 +20,6 @@ script:
 
   # Run the playbook with ansible-playbook.
   - 'printf "test\n\rtest\n\r" | ansible-playbook -i "localhost," -c local main.yml --sudo'
+
+notifications:
+  slack: drupalway:VzYrnxxXG5JC8QUIasOpgDhq

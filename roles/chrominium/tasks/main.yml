@@ -1,6 +1,0 @@
----
-- name: Install Browser
-  apt: name=chromium-browser state=present
-
-- name: Install Flash plugin
-  apt: name=pepperflashplugin-nonfree state=present

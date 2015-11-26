@@ -3,14 +3,14 @@ language: python
 python: "2.7"
 
 sudo: required
+dist: trusty
 
 before_install:
   # Remove MySQL. Completely and totally.
-  - sudo apt-get remove --purge 'mysql*'
-  - sudo apt-get autoremove
-  - sudo apt-get autoclean
+  - sudo apt-get remove --purge 'mysql*' -y
+  - sudo apt-get autoremove -y
+  - sudo apt-get autoclean -y
   - sudo rm -rf /var/lib/mysql
-  - sudo truncate -s 0 /var/log/mysql/error.log
 
 install:
   # Install Ansible.

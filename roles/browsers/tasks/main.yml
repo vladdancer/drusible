@@ -1,15 +1,23 @@
 ---
 
-- name: Update apt caches
-    apt:
-      update_cache: yes
+- name: Remove existent flashplugins
+  apt: name='{{ item }}' state='absent'
+  with_items:
+    - "flashplugin-installer"
+    - "adobe-flashplugin"
 
-- name: Purge existent flash
-  shell: "apt-get purge adobe-flash{plugin,-properties-gtk}"
+- name: Add flashplugin repo
+  apt_repository: repo='ppa:nilarimogard/webupd8'
+
+- name: Update apt cache
+  apt: update_cache=yes
+
+- name: Install freshplayerplugin and Pepper Flash Player
+  apt: name='{{ item }}' state='present'
+  with_items:
+    - "freshplayerplugin"
+    - "pepperflashplugin-nonfree"
+
+- name: Update Pepper Flash Player itself
+  shell: update-pepperflashplugin-nonfree --install
   sudo: yes
-
-- name: Installing browser flash plugin.
-  apt:
-    name: flashplugin-installer
-    state: present
-    update_cache: yes

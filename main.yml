@@ -40,7 +40,7 @@
     - java
     - kosssi.phpstorm
     - browsers
-    - terminal
+    #- terminal
     - git_power
     - grafics
     - chats

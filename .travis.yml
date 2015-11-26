@@ -11,6 +11,9 @@ install:
   # Add ansible.cfg to set local roles path.
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
+before_script:
+  - 'rm -rf $HOME/.gitconfig'
+
 script:
   # Make sure Ansible requirements install correctly.
   - 'ansible-galaxy install -r requirements.yml'

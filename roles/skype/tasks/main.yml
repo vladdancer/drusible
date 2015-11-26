@@ -1,9 +1,6 @@
 - name: Install non-standard architectures package
   sudo: yes
-  apt:
-    name: package:architecture
-    state: present
-    update_cache: yes
+  shell: "echo 'foreign-architecture i386' > /etc/dpkg/dpkg.cfg.d/multiarch"
   when: ansible_userspace_bits == "64"
 
 - name: Add architecture for x64 systems

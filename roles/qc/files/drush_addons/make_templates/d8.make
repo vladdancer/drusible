@@ -1,4 +1,4 @@
-core = 8.0.x
+core = 8.x
 api = 2
 
 ; Core

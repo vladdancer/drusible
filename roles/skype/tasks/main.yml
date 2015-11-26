@@ -1,3 +1,11 @@
+- name: Install non-standard architectures package
+  sudo: yes
+  apt:
+    name: package:architecture
+    state: present
+    update_cache: yes
+  when: ansible_userspace_bits == "64"
+
 - name: Add architecture for x64 systems
   sudo: yes
   shell: "dpkg --add-architecture i386"

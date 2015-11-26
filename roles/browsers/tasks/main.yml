@@ -1,4 +1,7 @@
 ---
 
 - name: Installing browser flash plugin.
-  apt: pkg=flashplugin-installer state=latest
+  apt:
+    name: adobe-flashplugin
+    state: latest
+    update_cache: yes

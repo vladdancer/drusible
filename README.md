@@ -15,6 +15,10 @@ sudo install_ansible.sh
 sudo ansible-galaxy install -r requirements.yml
 ansible-playbook main.yml -i inventory -s -K
 ```
+OR
+```
+sh ansible-run.sh
+```
 ### Testing on VM (latest virtualbox)
 http://askubuntu.com/questions/451805/screen-resolution-problem-with-ubuntu-14-04-and-virtualbox#answer-595192
 Fix shared folder issue: ```sudo adduser <some user> vboxsf```

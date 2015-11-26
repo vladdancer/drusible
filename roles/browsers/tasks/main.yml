@@ -1,4 +1,25 @@
 ---
 
-- name: Installing browser flash plugin.
-  apt: pkg=flashplugin-installer state=latest
+- name: Download FlashPlugin
+  get_url:
+    url: '{{ flashplugin_url }}'
+    dest: '{{ flashplugin_deb_path }}'
+    mode: '0777'
+  ignore_errors: True
+
+- name: Check if the downloaded file exist
+  stat:
+    path: '{{ flashplugin_deb_path }}'
+  register: flashplugin_file
+
+- name: Install FlashPlugin from file
+  apt:
+    deb: '{{ flashplugin_deb_path }}'
+  when: flashplugin_file.stat.exists == true
+  sudo: yes
+
+- name: Remove FlashPlugin .deb file
+  file:
+    path: '{{ flashplugin_deb_path }}'
+    state: absent
+  when: flashplugin_file.stat.exists == true

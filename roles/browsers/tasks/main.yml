@@ -1,23 +1,19 @@
 ---
 
-- name: Remove existent flashplugins
-  apt: name='{{ item }}' state='absent'
-  with_items:
-    - "flashplugin-installer"
-    - "adobe-flashplugin"
+- name: Download FlashPlugin
+  get_url:
+    url: 'http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20151110.1-0wily1_amd64.deb'
+    dest: '/temp/adobe-flashplugin.deb'
+    mode: '0777'
+  register: flashplugin_downloaded
 
-- name: Add flashplugin repo
-  apt_repository: repo='ppa:nilarimogard/webupd8'
-
-- name: Update apt cache
-  apt: update_cache=yes
-
-- name: Install freshplayerplugin and Pepper Flash Player
-  apt: name='{{ item }}' state='present'
-  with_items:
-    - "freshplayerplugin"
-    - "pepperflashplugin-nonfree"
-
-- name: Update Pepper Flash Player itself
-  shell: update-pepperflashplugin-nonfree --install
+- name: Install FlashPlugin from file
+  apt:
+    deb: '/temp/adobe-flashplugin.deb'
+  when: flashplugin_downloaded
   sudo: yes
+
+- name: Remove FlashPlugin .deb file
+  file:
+    path: '/temp/adobe-flashplugin.deb'
+    state: absent

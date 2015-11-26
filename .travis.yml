@@ -4,12 +4,23 @@ python: "2.7"
 
 sudo: required
 
+before_install:
+  # Remove MySQL. Completely and totally.
+  - sudo apt-get remove --purge 'mysql*'
+  - sudo apt-get autoremove
+  - sudo apt-get autoclean
+  - sudo rm -rf /var/lib/mysql
+  - sudo truncate -s 0 /var/log/mysql/error.log
+
 install:
   # Install Ansible.
   - pip install ansible
 
   # Add ansible.cfg to set local roles path.
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+
+before_script:
+  - 'rm -rf $HOME/.gitconfig'
 
 script:
   # Make sure Ansible requirements install correctly.

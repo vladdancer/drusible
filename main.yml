@@ -1,14 +1,4 @@
 ---
-# Inspired:
-# - https://github.com/geerlingguy/mac-dev-playbook
-# - https://github.com/MobliMic/Ubuntu-Development-Playbook
-# - https://github.com/psgrove/ansibledevubuntu
-# - https://bitbucket.org/drupalway/drupalpro/src/2dea442b7cfb2d2eb12d662206ce476b9b1449e3/drush_addons/quickstart/quickstart.inc?at=7.x-3.x
-# - https://www.digitalocean.com/community/tutorials/how-to-migrate-from-an-apache-web-server-to-nginx-on-an-ubuntu-vps
-# - https://github.com/marclloyd77/generator-drupalbase
-# - https://github.com/darol100/lazydubuntu/blob/master/bin/basictools.sh
-# - https://github.com/perusio/drupal-with-nginx
-# - https://github.com/Afxsoft/Nginx-Vhost-Drupal/blob/master/MyVhost.conf
 
 - hosts: localhost
   connection: local
@@ -27,42 +17,42 @@
     - include: tasks/prepare.yml
 
   roles:
-#    - geerlingguy.git
-#    - geerlingguy.dotfiles
-#    - tersmitten.nano
+    - geerlingguy.git
+    - geerlingguy.dotfiles
+    - tersmitten.nano
     - { role: geerlingguy.nginx, when: not drupal_nginx_conf_installed.stat.exists }
-#    - geerlingguy.php
-#    - geerlingguy.mysql
-#    - geerlingguy.composer
-#    - drush
-#    - qc
-#    - drush_rr
-#    - java
-#    - kosssi.phpstorm
-#    - vcabourdin.chrome
-#    - terminal
-#    - git_power
-#    - grafics
-#    - slack
-#    - xchat
     - adminer
-#    - skype
-#    - valentine94.sudoers
-#    - mrlesmithjr.nodejs
+    - geerlingguy.php
+    - geerlingguy.mysql
+    - geerlingguy.composer
+    - drush
+    - qc
+    - drush_rr
+    - java
+    - kosssi.phpstorm
+    - vcabourdin.chrome
+    - terminal
+    - git_power
+    - grafics
+    - slack
+    - xchat
+    - skype
+    - valentine94.sudoers
+    - mrlesmithjr.nodejs
 
   tasks:
     - include: tasks/drupal_nginx_conf.yml
     #- include: tasks/php_fpm_setup.yml
 
-  #vars_prompt:
-  #  - name: "git_user_name"
-  #    prompt: "Git user name"
-  #    private: no
+  vars_prompt:
+    - name: "git_user_name"
+      prompt: "Git user name"
+      private: no
 
-  #  - name: "git_user_email"
-  #    prompt: "Git user email"
-  #    private: no
+    - name: "git_user_email"
+      prompt: "Git user email"
+      private: no
 
   post_tasks:
-    #- include: tasks/phpcs_complete.yml
-    #- include: tasks/complete.yml
+    - include: tasks/phpcs_complete.yml
+    - include: tasks/complete.yml

@@ -8,5 +8,6 @@
 #- src: geerlingguy.drush
 - src: tersmitten.nano
 - src: kosssi.phpstorm
+- src: mrlesmithjr.nodejs
 #- src: valentine94.sudoers
 #- src: vcabourdin.chrome

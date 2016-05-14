@@ -48,6 +48,7 @@
 #    - adminer
 #    - skype
 #    - valentine94.sudoers
+    - mrlesmithjr.nodejs
 
   tasks:
     #- include: tasks/drupal_nginx_conf.yml

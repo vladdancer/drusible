@@ -7,7 +7,7 @@ composer_home_path: "/home/{{ ansible_env.SUDO_USER }}/.composer"
 # which should be installed via composer.
 composer_global_packages:
   - name: drush/drush
-    release: "8.1.0"
+    release: "7.3.0"
   - name: squizlabs/php_codesniffer
   - name: drupal/coder
     release: "8.2.4"

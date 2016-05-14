@@ -1,0 +1,3 @@
+---
+
+slack_local_source: '{{ ansible_env.PWD }}/roles/slack/files/slack-desktop-2.0.5-amd64.deb'

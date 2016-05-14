@@ -3,5 +3,5 @@ echo ">>> Prepare installation"
 sudo sh install_ansible.sh
 sudo ansible-galaxy install -r requirements.yml --force
 echo ">>> Starting installation"
-ansible-playbook main.yml -i inventory -s -K
+ansible-playbook main.yml -i inventory -s -K -vvv
 echo ">>> Installation complete"

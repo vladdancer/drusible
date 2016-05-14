@@ -1,3 +1,5 @@
+---
+
 - name: Create Adminer folder
   file:
     path: /usr/share/adminer
@@ -14,23 +16,7 @@
     dest: /usr/share/adminer/adminer.php
     state: link
 
-- name: Adminer vhost
-  copy: 
-    src: '{{ ansible_env.PWD }}/roles/adminer/files/adminer'
-    dest: /etc/nginx/sites-available/adminer
-    mode: 0644
-
-- name: Create adminer vhost symlink
-  file: 
-    src: /etc/nginx/sites-available/adminer
-    dest: /etc/nginx/sites-enabled/adminer
-    state: link
-
 - name: Add adminer to hosts
   lineinfile:
     dest: /etc/hosts
     line: "127.0.0.1 adminer"
-
-- name: Restart nginx server
-  shell: "service nginx restart"
-  sudo: yes

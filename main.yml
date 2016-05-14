@@ -17,9 +17,9 @@
   vars_files:
     - vars/git.yml
     - vars/dotfiles.yml
-    - vars/mysql.yml
-    - vars/php.yml
-    - vars/phpstorm.yml
+#    - vars/mysql.yml
+#    - vars/php.yml
+#    - vars/phpstorm.yml
     - vars/main.yml
 
   pre_tasks:
@@ -30,27 +30,27 @@
     - geerlingguy.git
     - geerlingguy.dotfiles
     - tersmitten.nano
-    - { role: geerlingguy.nginx, when: not drupal_nginx_conf_installed.stat.exists }
-    - geerlingguy.php
-    - geerlingguy.mysql
-    - geerlingguy.composer
-    - geerlingguy.drush
-    - qc
-    - drush_rr
-    - java
-    - kosssi.phpstorm
+#    - { role: geerlingguy.nginx, when: not drupal_nginx_conf_installed.stat.exists }
+#    - geerlingguy.php
+#    - geerlingguy.mysql
+#    - geerlingguy.composer
+#    - geerlingguy.drush
+#    - qc
+#    - drush_rr
+#    - java
+#    - kosssi.phpstorm
     - cmprescott.chrome
     - flashplayer
     - terminal
     - git_power
     - grafics
     - chats
-    - adminer
+#    - adminer
     - skype
     - valentine94.sudoers
 
   tasks:
-    - include: tasks/drupal_nginx_conf.yml
+    #- include: tasks/drupal_nginx_conf.yml
     #- include: tasks/php_fpm_setup.yml
 
   vars_prompt:
@@ -63,5 +63,5 @@
       private: no
 
   post_tasks:
-    - include: tasks/phpcs_complete.yml
+    #- include: tasks/phpcs_complete.yml
     - include: tasks/complete.yml

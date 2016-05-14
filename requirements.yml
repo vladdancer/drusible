@@ -4,8 +4,8 @@
 - src: geerlingguy.nginx
 - src: geerlingguy.php
   version: 1.7.0
-#- src: geerlingguy.mysql
-#- src: geerlingguy.composer
+- src: geerlingguy.mysql
+- src: geerlingguy.composer
 #- src: geerlingguy.drush
 - src: tersmitten.nano
 #- src: kosssi.phpstorm

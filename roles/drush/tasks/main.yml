@@ -1,12 +1,8 @@
 ---
 
-- name: Install Drush via Composer
-  command: "composer global require drush/drush:{{drush_version}}"
-  register: drush_installed
-  become: yes
-
-#- name: Create drush symlink.
-#  file:
-#    src: "{{ drush_install_path }}/drush"
-#    dest: "{{ drush_path }}"
-#    state: link
+- name: Create drush symlink.
+  file:
+    src: "{{drush_vendor_path}}"
+    dest: "{{drush_execute_path}}"
+    state: link
+    mode: 0755

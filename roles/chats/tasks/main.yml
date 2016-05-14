@@ -15,6 +15,7 @@
   get_url:
     url: "{{slack_deb_url}}"
     dest: "/home/{{ ansible_env.USER }}/Downloads/slack.deb"
+  sudo: true
   when: slack_deb.rc == 1
 
 - name: Slack | Install Slack

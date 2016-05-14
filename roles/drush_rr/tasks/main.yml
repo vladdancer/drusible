@@ -1,3 +1,5 @@
+---
+
 - name: Check is Drush Registry Rebuild module exist
   stat: path="{{ user_home_dir }}/.drush/registry_rebuild"
   register: drush_rr

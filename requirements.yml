@@ -7,6 +7,6 @@
 #- src: geerlingguy.composer
 #- src: geerlingguy.drush
 - src: tersmitten.nano
-#- src: kosssi.phpstorm
-- src: valentine94.sudoers
-- src: vcabourdin.chrome
+- src: kosssi.phpstorm
+#- src: valentine94.sudoers
+#- src: vcabourdin.chrome

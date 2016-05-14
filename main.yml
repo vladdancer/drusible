@@ -19,7 +19,7 @@
     - vars/dotfiles.yml
 #    - vars/mysql.yml
 #    - vars/php.yml
-#    - vars/phpstorm.yml
+    - vars/phpstorm.yml
     - vars/main.yml
 
   pre_tasks:
@@ -37,17 +37,17 @@
 #    - geerlingguy.drush
 #    - qc
 #    - drush_rr
-#    - java
-#    - kosssi.phpstorm
-    - vcabourdin.chrome
-    - terminal
-    - git_power
-    - grafics
-    - slack
-    - xchat
+    - java
+    - kosssi.phpstorm
+#    - vcabourdin.chrome
+#    - terminal
+#    - git_power
+#    - grafics
+#    - slack
+#    - xchat
 #    - adminer
-    - skype
-    - valentine94.sudoers
+#    - skype
+#    - valentine94.sudoers
 
   tasks:
     #- include: tasks/drupal_nginx_conf.yml
@@ -64,4 +64,4 @@
 
   post_tasks:
     #- include: tasks/phpcs_complete.yml
-    - include: tasks/complete.yml
+#    - include: tasks/complete.yml

@@ -1,10 +1,10 @@
 ---
 
-# xChat
+# xChat.
 - name: Ensure xChat is installed.
   apt: pkg=xchat state=latest
 
-# HipChat
+# HipChat.
 - name: HipChat | Add repository into sources list.
   apt_repository: repo='deb http://downloads.hipchat.com/linux/apt stable main' state=present
 
@@ -30,3 +30,22 @@
 
 - name: HipChat | Install missing library
   apt: name=libxcb-keysyms1-dev
+
+# Slack.
+- name: Slack | Check if Slack is installed
+  command: dpkg-query -W slack
+  register: slack_deb
+  failed_when: slack_deb.rc > 1
+  changed_when: slack_deb.rc == 1
+
+- name: Slack | Downolad package
+  get_url:
+    url: {{slack_deb_url}}
+    dest: /temp/slack.deb
+  when: slack_deb.rc == 1
+
+- name: Slack | Install Slack
+  apt:
+    deb: /temp/slack.deb
+  sudo: true
+  when: slack_deb.rc == 1

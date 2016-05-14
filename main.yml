@@ -39,7 +39,7 @@
 #    - drush_rr
 #    - java
 #    - kosssi.phpstorm
-    - cmprescott.chrome
+    - vcabourdin.chrome
     - flashplayer
     - terminal
     - git_power

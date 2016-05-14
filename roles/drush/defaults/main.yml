@@ -1,4 +1,0 @@
----
-
-drush_vendor_path: "{{user_home_dir}}/.composer/vendor/drush/drush/drush"
-drush_execute_path: "/usr/local/bin/drush"

@@ -2,7 +2,7 @@
 
 - name: Create drush symlink.
   file:
-    src: "{{drush_vendor_path}}"
-    dest: "{{drush_execute_path}}"
+    src: "{{composer_home_path}}/vendor/drush/drush/drush"
+    dest: "/usr/local/bin/drush"
     state: link
     mode: 0755

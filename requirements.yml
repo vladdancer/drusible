@@ -1,14 +1,18 @@
 ---
 - src: geerlingguy.git
+  version: 1.1.1
 - src: geerlingguy.dotfiles
+  version: 1.1.0
 - src: geerlingguy.nginx
+  version: 1.9.2
 - src: geerlingguy.php
   version: 1.7.0
 - src: geerlingguy.mysql
+  version: 2.2.1
 - src: geerlingguy.composer
-#- src: geerlingguy.drush
+  version: 1.4.0
 - src: tersmitten.nano
-#- src: kosssi.phpstorm
-#- src: mrlesmithjr.nodejs
-#- src: valentine94.sudoers
-#- src: vcabourdin.chrome
+- src: kosssi.phpstorm
+- src: mrlesmithjr.nodejs
+- src: valentine94.sudoers
+- src: vcabourdin.chrome

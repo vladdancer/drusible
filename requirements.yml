@@ -31,9 +31,6 @@
 # VirtualBox.
 - src: tersmitten.virtualbox
   version: v1.0.3
-# Vagrant.
-- src: tersmitten.vagrant
-  version: v1.0.2
 # Mailcatcher.
 - src: Oefenweb.mailcatcher
   version: v1.0.0

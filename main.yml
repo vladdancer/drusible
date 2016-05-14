@@ -40,11 +40,11 @@
 #    - java
 #    - kosssi.phpstorm
     - vcabourdin.chrome
-    - flashplayer
     - terminal
     - git_power
     - grafics
-    - chats
+    - slack
+    - xchat
 #    - adminer
     - skype
     - valentine94.sudoers

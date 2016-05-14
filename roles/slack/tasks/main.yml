@@ -1,24 +1,19 @@
 ---
 
-# xChat.
-- name: Ensure xChat is installed.
-  apt: pkg=xchat state=latest
-
-# Slack.
-- name: Slack | Check if Slack is installed
+- name: Check if Slack is installed
   command: dpkg-query -W slack
   register: slack_deb
   failed_when: slack_deb.rc > 1
   changed_when: slack_deb.rc == 1
 
-- name: Slack | Download package
+- name: Download package
   get_url:
     url: "{{slack_deb_url}}"
     dest: "{{slack_local_source}}"
   sudo: true
   when: slack_deb.rc == 1
 
-- name: Slack | Install Slack
+- name: Install Slack
   apt:
     deb: "{{slack_local_source}}"
   sudo: true

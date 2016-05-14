@@ -39,7 +39,8 @@
     - drush_rr
     - java
     - kosssi.phpstorm
-    - browsers
+    - cmprescott.chrome
+    - flashplayer
     - terminal
     - git_power
     - grafics

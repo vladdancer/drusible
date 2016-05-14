@@ -2,9 +2,11 @@
 # Nano.
 - src: tersmitten.nano
 # PHPStorm.
-- src: kosssi.phpstorm
+- src: tersmitten.phpstorm
+  version: v1.0.1
 # NodeJS.
-- src: mrlesmithjr.nodejs
+- src: tersmitten.nodejs
+  version: v2.1.0
 # Sudoers fix.
 - src: valentine94.sudoers
 # Google Chrome.
@@ -26,6 +28,12 @@
 # Composer.
 - src: geerlingguy.composer
   version: 1.4.0
-# VirtualBox
+# VirtualBox.
 - src: tersmitten.virtualbox
   version: v1.0.3
+# Vagrant.
+- src: tersmitten.vagrant
+  version: v1.0.2
+# Mailcatcher.
+- src: Oefenweb.mailcatcher
+  version: v1.0.0

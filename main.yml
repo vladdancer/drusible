@@ -9,8 +9,8 @@
     - vars/dotfiles.yml
     - vars/mysql.yml
     - vars/php.yml
-    - vars/phpstorm.yml
     - vars/main.yml
+    - vars/nodejs.yml
 
   pre_tasks:
     - include: tasks/ansible-setup.yml
@@ -29,7 +29,7 @@
     - qc
     - drush_rr
     - java
-    - kosssi.phpstorm
+    - tersmitten.phpstorm
     - vcabourdin.chrome
     - terminal
     - git_power
@@ -38,8 +38,9 @@
     - xchat
     - skype
     - valentine94.sudoers
-    - mrlesmithjr.nodejs
+    - tersmitten.nodejs
     - tersmitten.virtualbox
+    - Oefenweb.mailcatcher
 
   tasks:
     - include: tasks/drupal_nginx_conf.yml

@@ -1,17 +1,13 @@
 server {
- listen   80;
+ listen 80;
  server_name adminer;
-
  index latest.php;
  set $root_path '/usr/share/adminer';
  root $root_path;
-
-try_files $uri $uri/ @rewrite;
-
+ try_files $uri $uri/ @rewrite;
  location @rewrite {
      rewrite ^/(.*)$ /index.php?_url=/$1;
  }
-
  location ~ \.php {
      fastcgi_pass unix:/run/php5-fpm.sock;
      fastcgi_index /latest.php;
@@ -23,11 +19,9 @@ try_files $uri $uri/ @rewrite;
      fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
  }
-
  location ~* ^/(css|img|js|flv|swf|download)/(.+)$ {
      root $root_path;
  }
-
  location ~ /\.ht {
      deny all;
  }

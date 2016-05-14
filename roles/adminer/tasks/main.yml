@@ -15,10 +15,11 @@
     state: link
 
 - name: Adminer vhost
-  copy: 
+  file:
     src: '{{ ansible_env.PWD }}/roles/adminer/files/adminer'
     dest: /etc/nginx/sites-available/adminer
     mode: 0644
+    state: present
   sudo: yes
 
 - name: Create adminer vhost symlink

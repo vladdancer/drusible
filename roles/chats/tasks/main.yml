@@ -40,7 +40,7 @@
 
 - name: Slack | Downolad package
   get_url:
-    url: {{slack_deb_url}}
+    url: "{{slack_deb_url}}"
     dest: /temp/slack.deb
   when: slack_deb.rc == 1
 

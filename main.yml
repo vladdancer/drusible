@@ -34,7 +34,6 @@
     - geerlingguy.php
     - geerlingguy.mysql
     - geerlingguy.composer
-    - drush
 #    - qc
 #    - drush_rr
 #    - java

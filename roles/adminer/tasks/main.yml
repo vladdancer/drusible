@@ -15,9 +15,7 @@
     state: link
 
 - name: Adminer vhost
-  copy:
-    src: "{{ ansible_env.PWD }}/roles/adminer/files/adminer"
-    dest: /etc/nginx/sites-available/adminer
+  command: "cp -f {{ ansible_env.PWD }}/roles/adminer/files/adminer /etc/nginx/sites-available/adminer"
   become: true
 
 - name: Create adminer vhost symlink

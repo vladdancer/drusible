@@ -18,7 +18,7 @@
     - vars/git.yml
     - vars/dotfiles.yml
 #    - vars/mysql.yml
-#    - vars/php.yml
+    - vars/php.yml
 #    - vars/phpstorm.yml
     - vars/main.yml
 
@@ -31,7 +31,7 @@
     - geerlingguy.dotfiles
     - tersmitten.nano
     - { role: geerlingguy.nginx, when: not drupal_nginx_conf_installed.stat.exists }
-#    - geerlingguy.php
+    - geerlingguy.php
 #    - geerlingguy.mysql
 #    - geerlingguy.composer
 #    - geerlingguy.drush

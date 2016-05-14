@@ -6,15 +6,7 @@
   failed_when: slack_deb.rc > 1
   changed_when: slack_deb.rc == 1
 
-- name: Download package
-  get_url:
-    url: "{{slack_deb_url}}"
-    dest: "{{slack_local_source}}"
-  sudo: true
-  when: slack_deb.rc == 1
-
 - name: Install Slack
-  apt:
-    deb: "{{slack_local_source}}"
+  apt: deb="{{slack_local_source}}"
   sudo: true
   when: slack_deb.rc == 1

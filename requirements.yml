@@ -26,7 +26,5 @@
 # Composer.
 - src: geerlingguy.composer
   version: 1.4.0
-# Vagrant.
-- src: klynch.vagrant
 # VirtualBox
 - src: FGtatsuro.virtualbox

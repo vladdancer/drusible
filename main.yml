@@ -11,6 +11,7 @@
     - vars/php.yml
     - vars/phpstorm.yml
     - vars/main.yml
+    - vars/vagrant.yml
 
   pre_tasks:
     - include: tasks/ansible-setup.yml
@@ -39,6 +40,8 @@
     - skype
     - valentine94.sudoers
     - mrlesmithjr.nodejs
+    - klynch.vagrant
+    - FGtatsuro.virtualbox
 
   tasks:
     - include: tasks/drupal_nginx_conf.yml

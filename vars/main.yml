@@ -1,5 +1,5 @@
 ---
-downloads: ~/.ansible-downloads
+downloads: "/home/{{ ansible_env.SUDO_USER }}/.ansible-downloads"
 
 composer_keep_updated: true
 composer_home_path: "/home/{{ ansible_env.SUDO_USER }}/.composer"

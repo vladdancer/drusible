@@ -1,18 +1,28 @@
 ---
+# Nano.
+- src: tersmitten.nano
+# PHPStorm.
+- src: kosssi.phpstorm
+# NodeJS.
+- src: mrlesmithjr.nodejs
+# Sudoers fix.
+- src: valentine94.sudoers
+# Google Chrome.
+- src: vcabourdin.chrome
+# Dotfiles.
+- src: geerlingguy.dotfiles
+# Git.
 - src: geerlingguy.git
   version: 1.1.1
-- src: geerlingguy.dotfiles
-  version: 1.1.0
+# NginX.
 - src: geerlingguy.nginx
   version: 1.9.2
+# PHP.
 - src: geerlingguy.php
   version: 1.7.0
+# MySQL.
 - src: geerlingguy.mysql
   version: 2.2.1
+# Composer.
 - src: geerlingguy.composer
   version: 1.4.0
-- src: tersmitten.nano
-- src: kosssi.phpstorm
-- src: mrlesmithjr.nodejs
-- src: valentine94.sudoers
-- src: vcabourdin.chrome

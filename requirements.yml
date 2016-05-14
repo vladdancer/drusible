@@ -27,4 +27,5 @@
 - src: geerlingguy.composer
   version: 1.4.0
 # VirtualBox
-- src: FGtatsuro.virtualbox
+- src: tersmitten.virtualbox
+  version: v1.0.3

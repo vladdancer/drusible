@@ -39,7 +39,7 @@
     - skype
     - valentine94.sudoers
     - mrlesmithjr.nodejs
-    - FGtatsuro.virtualbox
+    - tersmitten.virtualbox
 
   tasks:
     - include: tasks/drupal_nginx_conf.yml

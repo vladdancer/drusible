@@ -41,11 +41,11 @@
 - name: Slack | Downolad package
   get_url:
     url: "{{slack_deb_url}}"
-    dest: /temp/slack.deb
+    dest: "/home/{{ ansible_env.USER }}/Downloads/slack.deb"
   when: slack_deb.rc == 1
 
 - name: Slack | Install Slack
   apt:
-    deb: /temp/slack.deb
+    deb: "/home/{{ ansible_env.USER }}/Downloads/slack.deb"
   sudo: true
   when: slack_deb.rc == 1

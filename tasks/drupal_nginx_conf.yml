@@ -70,11 +70,9 @@
     src: '{{ ansible_env.PWD }}/files/adminer'
     dest: /etc/nginx/sites-available/adminer
     mode: 0644
-  become: true
 
 - name: Enable Adminer
   file:
     src: /etc/nginx/sites-available/adminer
     dest: /etc/nginx/sites-enabled/adminer
     state: link
-  become: true

@@ -34,10 +34,9 @@
     - geerlingguy.php
     - geerlingguy.mysql
     - geerlingguy.composer
-#    - geerlingguy.drush
+    - drush
 #    - qc
 #    - drush_rr
-#    - drush
 #    - java
 #    - kosssi.phpstorm
 #    - vcabourdin.chrome

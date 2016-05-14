@@ -1,13 +1,13 @@
 ---
 - src: geerlingguy.git
 - src: geerlingguy.dotfiles
-#- src: geerlingguy.nginx
+- src: geerlingguy.nginx
 #- src: geerlingguy.php
 #- src: geerlingguy.mysql
 #- src: geerlingguy.composer
 #- src: geerlingguy.drush
 - src: tersmitten.nano
-- src: kosssi.phpstorm
-- src: mrlesmithjr.nodejs
+#- src: kosssi.phpstorm
+#- src: mrlesmithjr.nodejs
 #- src: valentine94.sudoers
 #- src: vcabourdin.chrome

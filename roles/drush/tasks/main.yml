@@ -1,0 +1,5 @@
+---
+
+- name: Install Drush via Composer
+  command: "composer global require drush/drush:{{drush_version}}"
+  register: drush_installed

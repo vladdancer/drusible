@@ -10,9 +10,6 @@ composer_global_packages:
   - name: drupal/coder
     release: "8.2.4"
 
-# Override Drush version.
-drush_version: 6.6.0
-
 # CPU specific
 nginx_worker_processes: "{{ ansible_processor_cores }}"
 nginx_worker_connections: "1024"

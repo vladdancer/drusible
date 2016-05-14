@@ -19,7 +19,7 @@
     - vars/dotfiles.yml
 #    - vars/mysql.yml
 #    - vars/php.yml
-    - vars/phpstorm.yml
+#    - vars/phpstorm.yml
     - vars/main.yml
 
   pre_tasks:
@@ -30,15 +30,16 @@
     - geerlingguy.git
     - geerlingguy.dotfiles
     - tersmitten.nano
-#    - { role: geerlingguy.nginx, when: not drupal_nginx_conf_installed.stat.exists }
+    - { role: geerlingguy.nginx, when: not drupal_nginx_conf_installed.stat.exists }
 #    - geerlingguy.php
 #    - geerlingguy.mysql
 #    - geerlingguy.composer
 #    - geerlingguy.drush
 #    - qc
 #    - drush_rr
-    - java
-    - kosssi.phpstorm
+#    - drush
+#    - java
+#    - kosssi.phpstorm
 #    - vcabourdin.chrome
 #    - terminal
 #    - git_power
@@ -48,20 +49,20 @@
 #    - adminer
 #    - skype
 #    - valentine94.sudoers
-    - mrlesmithjr.nodejs
+#    - mrlesmithjr.nodejs
 
   tasks:
-    #- include: tasks/drupal_nginx_conf.yml
+    - include: tasks/drupal_nginx_conf.yml
     #- include: tasks/php_fpm_setup.yml
 
-  vars_prompt:
-    - name: "git_user_name"
-      prompt: "Git user name"
-      private: no
+  #vars_prompt:
+  #  - name: "git_user_name"
+  #    prompt: "Git user name"
+  #    private: no
 
-    - name: "git_user_email"
-      prompt: "Git user email"
-      private: no
+  #  - name: "git_user_email"
+  #    prompt: "Git user email"
+  #    private: no
 
   post_tasks:
     #- include: tasks/phpcs_complete.yml

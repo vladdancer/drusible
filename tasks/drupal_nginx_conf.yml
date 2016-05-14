@@ -24,12 +24,24 @@
 - name: Ensure nginx_ensite is installed.
   git:
     repo: https://github.com/perusio/nginx_ensite
-    dest: "{{ downloads }}/nginx_ensite"
+    dest: "/opt/nginx_ensite"
     update: true
   register: nginx_ensite
 
-- name: Install nginx_ensite scripts.
-  shell: "cp -r {{ downloads }}/nginx_ensite/nginx_* /usr/sbin"
+- name: Install nginx_ensite script.
+  file:
+    src: "/opt/nginx_ensite/bin/nginx_ensite"
+    dest: /usr/sbin/nginx_ensite
+    state: link
+    mode: 0755
+  when: nginx_ensite
+
+- name: Install nginx_dissite script.
+  file:
+    src: "/opt/nginx_ensite/bin/nginx_dissite"
+    dest: /usr/sbin/nginx_dissite
+    state: link
+    mode: 0755
   when: nginx_ensite
 
 - name: Ensure nginx/microcache is created.

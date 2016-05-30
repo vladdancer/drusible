@@ -1,0 +1,5 @@
+---
+# NodeJS packages.
+nodejs_npm_packages:
+  - phantomjs2
+  - casperjs
